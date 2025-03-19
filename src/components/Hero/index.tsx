@@ -1,43 +1,57 @@
+import { useDispatch } from 'react-redux'
+
+import { add, open } from '../../store/reducers/cart'
+
+import * as S from './styles'
+
 import { Game } from '../../pages/Home'
 import Button from '../Button'
 import Tag from '../Tag'
 import { formatPrice } from '../ProductsList'
 
-import * as S from './styles'
-
 type Props = {
   game: Game
 }
 
-const Hero = ({ game }: Props) => (
-  <S.Banner style={{ backgroundImage: `url(${game.media.cover})` }}>
-    <div className="container">
-      <div>
-        <Tag>{game.details.category}</Tag>
-        <Tag>{game.details.system}</Tag>
-      </div>
-      <S.Infos>
-        <h2>{game.name}</h2>
-        <p>
-          {game.prices.discount && (
-            <span>
-              De <s>{formatPrice(game.prices.old)}</s>
-            </span>
+const Hero = ({ game }: Props) => {
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(game))
+    dispatch(open())
+  }
+
+  return (
+    <S.Banner style={{ backgroundImage: `url(${game.media.cover})` }}>
+      <div className="container">
+        <div>
+          <Tag>{game.details.category}</Tag>
+          <Tag>{game.details.system}</Tag>
+        </div>
+        <S.Infos>
+          <h2>{game.name}</h2>
+          <p>
+            {game.prices.discount && (
+              <span>
+                De <s>{formatPrice(game.prices.old)}</s>
+              </span>
+            )}
+            {game.prices.current && <>Por {formatPrice(game.prices.current)}</>}
+          </p>
+          {game.prices.current && (
+            <Button
+              title="Clique aqui para adicionar este jogo ao carrinho"
+              variant="primary"
+              type="button"
+              onClick={addToCart}
+            >
+              Adicionar ao carrinho
+            </Button>
           )}
-          {game.prices.current && <>Por {formatPrice(game.prices.current)}</>}
-        </p>
-        {game.prices.current && (
-          <Button
-            title="Clique aqui para adicionar este jogo ao carrinho"
-            variant="primary"
-            type="button"
-          >
-            Adicionar ao carrinho
-          </Button>
-        )}
-      </S.Infos>
-    </div>
-  </S.Banner>
-)
+        </S.Infos>
+      </div>
+    </S.Banner>
+  )
+}
 
 export default Hero
