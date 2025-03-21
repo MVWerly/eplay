@@ -1,13 +1,12 @@
 import { useDispatch } from 'react-redux'
 
-import { add, open } from '../../store/reducers/cart'
-
-import * as S from './styles'
-
-import { Game } from '../../pages/Home'
 import Button from '../Button'
 import Tag from '../Tag'
-import { formatPrice } from '../ProductsList'
+
+import { add, open } from '../../store/reducers/cart'
+import { parseToBrl } from '../../utils'
+
+import * as S from './styles'
 
 type Props = {
   game: Game
@@ -33,15 +32,15 @@ const Hero = ({ game }: Props) => {
           <p>
             {game.prices.discount && (
               <span>
-                De <s>{formatPrice(game.prices.old)}</s>
+                De <s>{parseToBrl(game.prices.old)}</s>
               </span>
             )}
-            {game.prices.current && <>Por {formatPrice(game.prices.current)}</>}
+            {game.prices.current && <>Por {parseToBrl(game.prices.current)}</>}
           </p>
           {game.prices.current && (
             <Button
               title="Clique aqui para adicionar este jogo ao carrinho"
-              variant="primary"
+              $variant="primary"
               type="button"
               onClick={addToCart}
             >

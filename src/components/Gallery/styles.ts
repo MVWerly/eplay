@@ -23,6 +23,7 @@ export const Action = styled.div`
 
 export const Item = styled.li`
   position: relative;
+  cursor: zoom-in;
 
   > img {
     border: 2px solid ${colors.white};
@@ -51,7 +52,7 @@ export const Modal = styled.div`
   align-items: center;
   justify-content: center;
 
-  &.visible {
+  &.is-visible {
     display: flex;
   }
 
@@ -79,6 +80,12 @@ export const ModalContant = styled.div`
     h4 {
       font-size: 18px;
       font-weight: bold;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
     }
   }
 

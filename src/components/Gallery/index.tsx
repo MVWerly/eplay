@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
 import Section from '../Section'
-import { GalleryItem } from '../../pages/Home'
 
-import play from '../../assets/images/play.png'
-import zoom from '../../assets/images/zoom.png'
-import close from '../../assets/images/fechar.png'
+import playIcon from '../../assets/images/play.png'
+import zoomIcon from '../../assets/images/zoom.png'
+import closeIcon from '../../assets/images/fechar.png'
 
 import * as S from './styles'
 
@@ -32,8 +31,8 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
   }
 
   const getMediaIcon = (item: GalleryItem) => {
-    if (item.type === 'image') return zoom
-    return play
+    if (item.type === 'image') return zoomIcon
+    return playIcon
   }
 
   const closeModal = () => {
@@ -73,11 +72,11 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
           ))}
         </S.Items>
       </Section>
-      <S.Modal className={modal.isVisible ? 'visible' : ''}>
+      <S.Modal className={modal.isVisible ? 'is-visible' : ''}>
         <S.ModalContant className="container">
           <header>
             <h4>{name}</h4>
-            <img src={close} alt="Ícone de fechar" onClick={closeModal} />
+            <img src={closeIcon} alt="Ícone de fechar" onClick={closeModal} />
           </header>
           {modal.type === 'image' ? (
             <img src={modal.url} />

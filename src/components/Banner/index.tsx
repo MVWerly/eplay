@@ -1,16 +1,17 @@
-import * as S from './styles'
-
 import Tag from '../Tag'
 import Button from '../Button'
-import { formatPrice } from '../ProductsList'
+import Loader from '../Loader'
 
+import { parseToBrl } from '../../utils'
 import { useGetFeatureGameQuery } from '../../services/api'
+
+import * as S from './styles'
 
 const Banner = () => {
   const { data: game } = useGetFeatureGameQuery()
 
   if (!game) {
-    return <h3>Carregando...</h3>
+    return <Loader />
   }
 
   return (
@@ -20,8 +21,8 @@ const Banner = () => {
         <div>
           <S.Title>{game.name}</S.Title>
           <S.Prices>
-            De <s>{formatPrice(game.prices.old)}</s> <br />
-            por apenas {formatPrice(game.prices.current)}
+            De <s>{parseToBrl(game.prices.old)}</s> <br />
+            por apenas {parseToBrl(game.prices.current)}
           </S.Prices>
         </div>
         <Button
